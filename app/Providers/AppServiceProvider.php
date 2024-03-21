@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\DTO\User\UserDTO;
+use App\Models\Post;
+use App\Models\Story;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(UserDTO::class, function ($app) {
+            return new UserDTO([]);
+        });
     }
 
     /**
@@ -22,8 +27,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        Relation::enforceMorphMap([
+            "post" => Post::class,
+            "story" => Story::class
+        ]);
     }
 }

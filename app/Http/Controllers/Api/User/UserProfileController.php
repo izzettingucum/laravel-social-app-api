@@ -3,20 +3,31 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
-use App\Services\User\UserService;
+use App\Http\Resources\UserResource;
+use App\Services\User\UserProfileService;
 use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
-    private UserService $userService;
+    private UserProfileService $userService;
 
-    public function index()
+    /**
+     * @param UserProfileService $userService
+     */
+    public function __construct(UserProfileService $userService)
     {
-        //
+        $this->userService = $userService;
     }
 
-    public function show(string $slug)
+    /**
+     * @return UserResource
+     */
+    public function index(): UserResource
     {
-        //
+        $user = $this->userService->getCurrentLoggedInUserProfile();
+
+        return UserResource::make(
+            $user
+        );
     }
 }

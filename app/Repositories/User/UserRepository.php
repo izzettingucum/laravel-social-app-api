@@ -29,7 +29,7 @@ class UserRepository implements UserRepositoryInterface
             ->GetNonArchivedPostsWithImages()
             ->GetNonArchivedPostCount()
             ->GetUserFollowersCount()
-            ->GetUserFollowingCount()
+            ->GetUserFollowingsCount()
             ->first();
     }
 
@@ -45,7 +45,7 @@ class UserRepository implements UserRepositoryInterface
             ->GetNonArchivedPostsWithImages()
             ->GetNonArchivedPostCount()
             ->GetUserFollowersCount()
-            ->GetUserFollowingCount()
+            ->GetUserFollowingsCount()
             ->first();
     }
 
@@ -55,9 +55,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getUserHiddenStatus(User $user): mixed
     {
-        return $user
-            ->GetUserInfo()
-            ->first("is_hidden");
+        return $user->userInfo()->first("is_hidden");
     }
 
     /**

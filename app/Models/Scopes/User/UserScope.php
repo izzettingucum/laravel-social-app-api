@@ -30,7 +30,7 @@ trait UserScope
     public function scopeGetNonArchivedPostsWithImages($query): mixed
     {
         return $query->with(["userPosts" => function ($query) {
-            return $query->where("is_archived", false)->with("postImages");
+            return $query->where("is_archived", false)->with("images");
         }]);
     }
 
@@ -58,9 +58,9 @@ trait UserScope
      * @param $query
      * @return mixed
      */
-    public function scopeGetUserFollowingCount($query): mixed
+    public function scopeGetUserFollowingsCount($query): mixed
     {
-        return $query->withCount("userFollowing");
+        return $query->withCount("userFollowings");
     }
 
     /**

@@ -22,7 +22,7 @@ class Post extends Model
     /**
      * @return MorphMany
      */
-    public function postImages(): MorphMany
+    public function images(): MorphMany
     {
         return $this->morphMany(Image::class, "resource");
     }

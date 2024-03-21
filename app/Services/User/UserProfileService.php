@@ -5,7 +5,7 @@ namespace App\Services\User;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 
-class UserService
+class UserProfileService
 {
     private UserRepositoryInterface $userRepository;
 
@@ -18,11 +18,12 @@ class UserService
     }
 
     /**
-     * @param User $user
-     * @return mixed
+     * @return User
      */
-    public function getUserHiddenStatus(User $user): mixed
+    public function getCurrentLoggedInUserProfile(): User
     {
-        return $this->userRepository->getUserHiddenStatus($user);
+        $user = auth()->user();
+
+        return $this->userRepository->getUserProfileByUserModel($user);
     }
 }

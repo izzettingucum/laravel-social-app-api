@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\User\UserController;
+use App\Http\Controllers\Api\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(["prefix" => "/user", "middleware" => "auth"], function () {
-    Route::get("/index", [UserController::class, "index"])->name("user.index");
+    Route::group(["prefix" => "/profile"], function () {
+        Route::get("/index", [UserProfileController::class, "index"])->name("user.profile.index");
+    });
 });
 
 

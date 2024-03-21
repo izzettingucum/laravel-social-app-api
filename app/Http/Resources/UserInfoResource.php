@@ -15,10 +15,12 @@ class UserInfoResource extends JsonResource
      */
     public function toArray($request)
     {
-        return $this->merge(Arr::except(parent::toArray($request), [
-            "user_id",
-            "created_at",
-            "updated_at"
-        ]));
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "birthday" => $this->birthday,
+            "gender" => $this->gender,
+            "is_hidden" => $this->is_hidden
+        ];
     }
 }

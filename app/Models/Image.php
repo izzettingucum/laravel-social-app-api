@@ -13,8 +13,8 @@ class Image extends Model
     /**
      * @var string[]
      */
-    protected $hidden = [
-        "resource_id"
+    protected $fillable = [
+        "path"
     ];
 
     /**
