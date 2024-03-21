@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 
 class UserProfileController extends Controller
 {
-    private UserProfileService $userService;
+    private UserProfileService $userProfileService;
 
     /**
-     * @param UserProfileService $userService
+     * @param UserProfileService $userProfileService
      */
-    public function __construct(UserProfileService $userService)
+    public function __construct(UserProfileService $userProfileService)
     {
-        $this->userService = $userService;
+        $this->userProfileService = $userProfileService;
     }
 
     /**
@@ -24,7 +24,7 @@ class UserProfileController extends Controller
      */
     public function index(): UserResource
     {
-        $user = $this->userService->getCurrentLoggedInUserProfile();
+        $user = $this->userProfileService->getCurrentLoggedInUserProfile();
 
         return UserResource::make(
             $user
