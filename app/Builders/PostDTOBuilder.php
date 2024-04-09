@@ -4,7 +4,7 @@ namespace App\Builders;
 
 use App\DTO\PostDTO;
 
-final class PostObjectBuilder
+final class PostDTOBuilder
 {
     private int $id;
     private string $title;
@@ -15,7 +15,7 @@ final class PostObjectBuilder
      * @param int $id
      * @return $this
      */
-    public function setId(int $id): PostObjectBuilder
+    public function setId(int $id): PostDTOBuilder
     {
         $this->id = $id;
         return $this;
@@ -25,7 +25,7 @@ final class PostObjectBuilder
      * @param string $title
      * @return $this
      */
-    public function setTitle(string $title): PostObjectBuilder
+    public function setTitle(string $title): PostDTOBuilder
     {
         $this->title = $title;
         return $this;
@@ -35,7 +35,7 @@ final class PostObjectBuilder
      * @param int $user_id
      * @return $this
      */
-    public function setUserId(int $user_id): PostObjectBuilder
+    public function setUserId(int $user_id): PostDTOBuilder
     {
         $this->user_id = $user_id;
         return $this;
@@ -45,7 +45,7 @@ final class PostObjectBuilder
      * @param int $is_archived
      * @return $this
      */
-    public function setIsArchived (int $is_archived): PostObjectBuilder
+    public function setIsArchived (int $is_archived): PostDTOBuilder
     {
         $this->is_archived = $is_archived;
         return $this;

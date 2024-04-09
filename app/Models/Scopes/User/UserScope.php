@@ -27,10 +27,28 @@ trait UserScope
      * @param $query
      * @return mixed
      */
+    public function scopeGetNameThatBelongsToUserFromUserInfo($query): mixed
+    {
+        return $query->with(["userInfo:user_id,name"]);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeGetUserProfileImage($query): mixed
+    {
+        return $query->with("userProfileImage");
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
     public function scopeGetNonArchivedPostsWithImages($query): mixed
     {
         return $query->with(["userPosts" => function ($query) {
-            return $query->where("is_archived", false)->with("images");
+            return $query->where("is_archived", false)->with("postMedia");
         }]);
     }
 
@@ -68,10 +86,10 @@ trait UserScope
      * @param int $userId
      * @return mixed
      */
-    public function scopeCheckIfUserIsFollowing($query, int $userId): mixed
+    public function scopeCheckIfUserIsFollowingById($query, int $userId): mixed
     {
-        return $query->whereHas(["userFollowing" => function ($query) use ($userId) {
-            return $query->where("user_id", $userId);
-        }]);
+        return $query->whereHas('userFollowings', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        });
     }
 }

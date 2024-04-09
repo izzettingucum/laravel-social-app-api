@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(["prefix" => "/user", "middleware" => "auth"], function () {
-    Route::group(["prefix" => "/profile"], function () {
+Route::group(["prefix" => "/user"], function () {
+    Route::group(["prefix" => "/profile", "middleware" => "auth"], function () {
         Route::get("/index", [UserProfileController::class, "index"])->name("user.profile.index");
     });
+    Route::get("/{slug}", [UserProfileController::class, "show"])->name("user.profile.show");
 });
 
 

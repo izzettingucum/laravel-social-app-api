@@ -8,6 +8,9 @@ use App\DTO\User\UserDTO;
 use App\DTO\User\UserInfoDTO;
 use App\Models\Post;
 use App\Models\Story;
+use App\Services\User\UserService;
+use App\Strategies\UserProfile\ViewHiddenProfileStrategy;
+use App\Strategies\UserProfile\ViewOpenProfileStrategy;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,21 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UserDTO::class, function ($app) {
-            return new UserDTO([]);
-        });
-
-        $this->app->bind(UserInfoDTO::class, function ($app) {
-            return new UserInfoDTO([]);
-        });
-
-        $this->app->bind(CommentDTO::class, function ($app) {
-            return new CommentDTO([]);
-        });
-
-        $this->app->bind(PostDTO::class, function ($app) {
-            return new PostDTO([]);
-        });
+        //
     }
 
     /**
@@ -44,9 +33,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Relation::enforceMorphMap([
-            "post" => Post::class,
-            "story" => Story::class
-        ]);
+        //
     }
 }

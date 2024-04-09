@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Concerns\UserSlugable;
+use App\Models\Concerns\User\UserSlugable;
 use App\Models\Scopes\User\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,9 +13,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-/**
- * @function userInfo
- */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, UserSlugable, UserScope;
@@ -83,7 +80,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-
 
     /**
      * @return BelongsToMany

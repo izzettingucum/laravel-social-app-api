@@ -18,11 +18,19 @@ class UserRepository implements UserRepositoryInterface
         $this->userModel = $userModel;
     }
 
+    public function getUserIdBySlug(UserDTO $userDTO): mixed
+    {
+        return $this->userModel
+            ->GetUserBySlug($userDTO->slug)
+            ->select("id")
+            ->value("id");
+    }
+
     /**
      * @param User $user
      * @return mixed
      */
-    public function getUserProfileByUserModel(User $user): mixed
+    public function getWholeUserProfileByUserModel(User $user): mixed
     {
         return $user
             ->GetUserInfo()
@@ -30,32 +38,62 @@ class UserRepository implements UserRepositoryInterface
             ->GetNonArchivedPostCount()
             ->GetUserFollowersCount()
             ->GetUserFollowingsCount()
-            ->first();
+            ->GetUserProfileImage()
+            ->firstOrFail();
     }
 
     /**
      * @param UserDTO $userDTO
      * @return mixed
      */
-    public function getUserProfileBySlug(UserDTO $userDTO): mixed
+    public function getWholeUserProfileBySlug(UserDTO $userDTO): mixed
     {
         return $this->userModel
             ->GetUserBySlug($userDTO->slug)
-            ->GetUserInfo()
+            ->GetNameThatBelongsToUserFromUserInfo()
             ->GetNonArchivedPostsWithImages()
             ->GetNonArchivedPostCount()
             ->GetUserFollowersCount()
             ->GetUserFollowingsCount()
-            ->first();
+            ->GetUserProfileImage()
+            ->firstOrFail();
+    }
+
+    /**
+     * @param UserDTO $userDTO
+     * @return mixed
+     */
+    public function getHiddenUserProfileBySlug(UserDTO $userDTO): mixed
+    {
+        return $this->userModel
+            ->GetUserBySlug($userDTO->slug)
+            ->GetNonArchivedPostCount()
+            ->GetUserFollowersCount()
+            ->GetUserFollowingsCount()
+            ->getUserProfileImage()
+            ->firstOrFail();
+    }
+
+    /**
+     * @param UserDTO $userDTO
+     * @return mixed
+     */
+    public function checkUserExisting(UserDTO $userDTO): mixed
+    {
+        return $this->userModel
+            ->GetUserBySlug($userDTO->slug)
+            ->exists();
     }
 
     /**
      * @param User $user
      * @return mixed
      */
-    public function getUserHiddenStatus(User $user): mixed
+    public function getUserHiddenStatusBySlug(UserDTO $userDTO): mixed
     {
-        return $user->userInfo()->first("is_hidden");
+        return $this->userModel
+            ->GetUserBySlug($userDTO->slug)
+            ->first("is_hidden");
     }
 
     /**
@@ -63,10 +101,19 @@ class UserRepository implements UserRepositoryInterface
      * @param UserDTO $userDTO
      * @return mixed
      */
-   public function checkIfUserIsFollowing(User $user, UserDTO $userDTO): mixed
-   {
-       return $user
-           ->CheckIfUserIsFollowing($userDTO->id)
-           ->exists();
-   }
+    public function checkIfUserIsFollowing(User $user, UserDTO $userDTO): mixed
+    {
+        return $user
+            ->CheckIfUserIsFollowingById($userDTO->id)
+            ->exists();
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function checkIfPostLoaded(User $user): mixed
+    {
+        return $user->relationLoaded("userPosts");
+    }
 }

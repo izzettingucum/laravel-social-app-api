@@ -21,14 +21,16 @@ return new class extends Migration
             $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
             $table->date("birthday");
             $table->enum("gender", GenderEnum::toArrayAllValues());
-            $table->boolean("is_hidden")->default(false);
+            $table->string("city");
+            $table->string("phone")->nullable();
             $table->timestamps();
 
             $table->index(["name"]);
             $table->index(["user_id"]);
             $table->index(["birthday"]);
             $table->index(["gender"]);
-            $table->index(["is_hidden"]);
+            $table->index(["city"]);
+            $table->index(["phone"]);
         });
     }
 

@@ -18,7 +18,8 @@ final class UserDTO
         public readonly ?string $slug,
         public readonly ?string $email,
         public readonly ?string $password,
-        public readonly ?int $two_factor_auth
+        public readonly ?int $two_factor_auth,
+        public readonly ?bool $is_hidden
     )
     {}
 }

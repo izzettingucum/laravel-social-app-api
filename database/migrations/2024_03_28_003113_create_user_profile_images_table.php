@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\Post\IsArchivedEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('user_profile_images', function (Blueprint $table) {
             $table->id();
-            $table->string("title")->nullable();
             $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
-            $table->boolean("is_archived")->default(false);
+            $table->string("path");
             $table->timestamps();
-
-            $table->index(["user_id"]);
-            $table->index(["user_id", "is_archived"]);
         });
     }
 
@@ -33,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('user_profile_images');
     }
 };

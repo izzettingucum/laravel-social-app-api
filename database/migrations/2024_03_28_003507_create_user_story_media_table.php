@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StoryMedia\StoryMediaEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('user_story_media', function (Blueprint $table) {
             $table->id();
-            $table->morphs("resource");
+            $table->foreignId("story_id")->constrained("stories")->onDelete("cascade");
             $table->string("path");
+            $table->enum("media_type", StoryMediaEnum::toArrayAllValues());
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('user_story_media');
     }
 };

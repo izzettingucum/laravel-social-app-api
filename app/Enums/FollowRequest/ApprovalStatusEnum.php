@@ -9,7 +9,7 @@ enum ApprovalStatusEnum: int
     case APPROVAL_APPROVED = 2;
 
     /**
-     * @return ApprovalStatusEnum[]
+     * @return self[]
      */
     public static function toArrayAllValues(): array
     {

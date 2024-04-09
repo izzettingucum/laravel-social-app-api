@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserInfoResource extends JsonResource
+class PostMediaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,8 @@ class UserInfoResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "name" => $this->name,
-            "birthday" => $this->birthday,
-            "gender" => $this->gender,
-            "is_hidden" => $this->is_hidden,
-            "city" => $this->city,
-            "phone" => $this->phone
+            "path" => $this->resource->path,
+            "media_type" => $this->resource->media_type
         ];
     }
 }

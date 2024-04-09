@@ -8,7 +8,7 @@ enum GenderEnum: int
     case GENDER_WOMAN = 1;
 
     /**
-     * @return GenderEnum[]
+     * @return self[]
      */
     public static function toArrayAllValues(): array
     {

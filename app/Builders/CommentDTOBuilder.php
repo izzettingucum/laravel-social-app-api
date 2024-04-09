@@ -4,7 +4,7 @@ namespace App\Builders;
 
 use App\DTO\CommentDTO;
 
-final class CommentObjectBuilder
+final class CommentDTOBuilder
 {
     private int $id;
     private string $comment;
@@ -15,7 +15,7 @@ final class CommentObjectBuilder
      * @param int $id
      * @return $this
      */
-    public function setId(int $id): CommentObjectBuilder
+    public function setId(int $id): CommentDTOBuilder
     {
         $this->id = $id;
         return $this;
@@ -25,7 +25,7 @@ final class CommentObjectBuilder
      * @param string $comment
      * @return $this
      */
-    public function setComment(string $comment): CommentObjectBuilder
+    public function setComment(string $comment): CommentDTOBuilder
     {
         $this->comment = $comment;
         return $this;
@@ -35,7 +35,7 @@ final class CommentObjectBuilder
      * @param int $user_id
      * @return $this
      */
-    public function setUserId(int $user_id): CommentObjectBuilder
+    public function setUserId(int $user_id): CommentDTOBuilder
     {
         $this->user_id = $user_id;
         return $this;
@@ -45,7 +45,7 @@ final class CommentObjectBuilder
      * @param int $post_id
      * @return $this
      */
-    public function setPostId(int $post_id): CommentObjectBuilder
+    public function setPostId(int $post_id): CommentDTOBuilder
     {
         $this->post_id = $post_id;
         return $this;

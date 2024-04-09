@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Arr;
 
 class PostResource extends JsonResource
 {
@@ -16,10 +15,8 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
             "title" => $this->title,
-            "created_at" => $this->created_at,
-            "images" => ImageResource::collection($this->whenLoaded("images")),
+            "media" => PostMediaResource::collection($this->whenLoaded("postMedia")),
         ];
     }
 }

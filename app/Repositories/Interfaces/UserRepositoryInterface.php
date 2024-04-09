@@ -8,22 +8,40 @@ use App\Models\User;
 interface UserRepositoryInterface
 {
     /**
+     * @param UserDTO $userDTO
+     * @return mixed
+     */
+    public function getUserIdBySlug(UserDTO $userDTO): mixed;
+
+    /**
      * @param User $user
      * @return mixed
      */
-    public function getUserProfileByUserModel(User $user): mixed;
+    public function getWholeUserProfileByUserModel(User $user): mixed;
 
     /**
      * @param UserDTO $userDTO
      * @return mixed
      */
-    public function getUserProfileBySlug(UserDTO $userDTO): mixed;
+    public function getWholeUserProfileBySlug(UserDTO $userDTO): mixed;
+
+    /**
+     * @param UserDTO $userDTO
+     * @return mixed
+     */
+    public function getHiddenUserProfileBySlug(UserDTO $userDTO): mixed;
+
+    /**
+     * @param UserDTO $userDTO
+     * @return mixed
+     */
+    public function checkUserExisting(UserDTO $userDTO): mixed;
 
     /**
      * @param User $user
      * @return mixed
      */
-    public function getUserHiddenStatus(User $user): mixed;
+    public function getUserHiddenStatusBySlug(userDTO $userDTO): mixed;
 
     /**
      * @param User $user
@@ -31,4 +49,10 @@ interface UserRepositoryInterface
      * @return mixed
      */
     public function checkIfUserIsFollowing(User $user, userDTO $userDTO): mixed;
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function checkIfPostLoaded(User $user): mixed;
 }

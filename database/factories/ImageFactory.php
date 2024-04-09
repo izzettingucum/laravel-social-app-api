@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -12,6 +13,8 @@ class ImageFactory extends Factory
 {
     Use WithFaker;
 
+    protected $model = Image::class;
+
     /**
      * Define the model's default state.
      *
@@ -20,7 +23,9 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            "path" => $this->faker->filePath()
+            "resource_id" => 0,
+            "resource_type" => "test",
+            "path" => $this->faker->imageUrl()
         ];
     }
 }

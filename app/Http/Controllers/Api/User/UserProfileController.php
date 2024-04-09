@@ -4,30 +4,50 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Services\User\UserProfileService;
-use Illuminate\Http\Request;
+use App\Services\User\userService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Throwable;
 
 class UserProfileController extends Controller
 {
-    private UserProfileService $userProfileService;
+    private UserService $userService;
 
     /**
-     * @param UserProfileService $userProfileService
+     * @param UserService $userService
      */
-    public function __construct(UserProfileService $userProfileService)
+    public function __construct(UserService $userService)
     {
-        $this->userProfileService = $userProfileService;
+        $this->userService = $userService;
     }
 
     /**
-     * @return UserResource
+     * @return JsonResponse
      */
-    public function index(): UserResource
+    public function index(): JsonResponse
     {
-        $user = $this->userProfileService->getCurrentLoggedInUserProfile();
+        $user = $this->userService->getCurrentLoggedInUserProfile();
 
-        return UserResource::make(
-            $user
-        );
+        return response()->json([
+            "user" => UserResource::make($user)
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * @param string $slug
+     * @return JsonResponse
+     * @throws Throwable
+     */
+    public function show(string $slug): JsonResponse
+    {
+        $this->userService->validateUserExistingBySlug($slug);
+        $isHidden = $this->userService->getUserHiddenStatusBySlug($slug);
+        $this->userService->setViewProfileStrategyByHiddenStatus($isHidden);
+        $user = $this->userService->executeViewProfileStrategy($slug);
+        $status = $this->userService->setViewProfileStatus($user);
+
+        return response()->json([
+            "user" => UserResource::make($user)
+        ], $status);
     }
 }

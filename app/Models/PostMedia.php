@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Image extends Model
+class PostMedia extends Model
 {
     use HasFactory;
 
@@ -14,14 +14,15 @@ class Image extends Model
      * @var string[]
      */
     protected $fillable = [
-        "path"
+        "path",
+        "media_type"
     ];
 
     /**
-     * @return MorphTo
+     * @return BelongsTo
      */
-    public function resource(): MorphTo
+    public function post(): BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(Post::class);
     }
 }

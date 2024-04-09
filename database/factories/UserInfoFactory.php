@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Enums\UserInfo\GenderEnum;
+use App\Models\Image;
 use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -25,7 +27,8 @@ class UserInfoFactory extends Factory
             "user_id" => User::factory(),
             "birthday" => $this->faker->date,
             "gender" => GenderEnum::getGenderMan(),
-            "is_hidden" => false
+            "city" => $this->faker->city,
+            "phone" => $this->faker->phoneNumber
         ];
     }
 }

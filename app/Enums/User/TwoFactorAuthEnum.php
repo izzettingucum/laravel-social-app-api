@@ -9,7 +9,7 @@ enum TwoFactorAuthEnum: int
     case TWO_FACTOR_ACTIVATED = 2;
 
     /**
-     * @return TwoFactorAuthEnum[]
+     * @return self[]
      */
     public static function toArrayAllValues(): array
     {
