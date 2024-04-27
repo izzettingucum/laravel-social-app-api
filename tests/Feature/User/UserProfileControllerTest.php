@@ -197,4 +197,14 @@ class UserProfileControllerTest extends TestCase
         $this->assertEquals(0, $response->json("user")["user_followings_count"]);
         $this->assertEquals(1, $response->json("user")["user_posts_count"]);
     }
+
+    /**
+     * @test
+     */
+    public function itDoesntShowUserBySlugThatBelongsToNonExistingUser()
+    {
+        $response = $this->getJson(route("user.profile.show", $this->faker->slug));
+
+        $response->assertNotFound();
+    }
 }

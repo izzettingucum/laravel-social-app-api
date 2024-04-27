@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('post_media', function (Blueprint $table) {
+        Schema::create('post_medias', function (Blueprint $table) {
             $table->id();
             $table->foreignId("post_id")->constrained("posts")->onDelete("cascade");
             $table->string("path");

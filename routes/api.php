@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Post\PostController;
 use App\Http\Controllers\Api\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,10 @@ Route::group(["prefix" => "/user"], function () {
     Route::get("/{slug}", [UserProfileController::class, "show"])->name("user.profile.show");
 });
 
+Route::group(["prefix" => "/post", "middleware" => "auth"], function () {
+    Route::post("/create", [PostController::class, "create"])->name("post.create");
+    Route::patch("/update/{post_id}", [PostController::class, "update"])->name("post.update");
+    Route::delete("/delete/{post_id}", [PostController::class, "delete"])->name("post.delete");
+});
 
 

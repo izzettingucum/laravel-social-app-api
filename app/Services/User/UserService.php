@@ -27,9 +27,11 @@ class UserService
      */
     public function getCurrentLoggedInUserProfile(): User
     {
-        $user = auth()->user();
+        $userDTO = (new UserDTOBuilder())
+            ->setSlug(auth()->user()->slug)
+            ->build();
 
-        return $this->userRepository->getWholeUserProfileByUserModel($user);
+        return $this->userRepository->getWholeUserProfileBySlug($userDTO);
     }
 
     /**
@@ -45,7 +47,11 @@ class UserService
         return $this->userRepository->getWholeUserProfileBySlug($userDTO);
     }
 
-    public function getHiddenUserProfileBySlug(string $slug)
+    /**
+     * @param string $slug
+     * @return mixed
+     */
+    public function getHiddenUserProfileBySlug(string $slug): mixed
     {
         $userDTO = (new UserDTOBuilder())
             ->setSlug($slug)
@@ -63,14 +69,34 @@ class UserService
             ->setSlug($slug)
             ->build();
 
-        $userExisting = $this->userRepository->checkUserExisting($userDTO);
+        $user_existing = $this->userRepository->checkUserExistingBySlug($userDTO);
 
-        throw_if($userExisting == false,
+        throw_if($user_existing == false,
             new NotFoundHttpException("User cannot be found.")
         );
     }
 
-    public function getUserHiddenStatusBySlug(string $slug)
+    /**
+     * @throws \Throwable
+     */
+    public function validateUserExistingById(int $id): void
+    {
+        $userDTO = (new UserDTOBuilder())
+            ->setSlug($id)
+            ->build();
+
+        $user_existing = $this->userRepository->checkUserExistingById($userDTO);
+
+        throw_if($user_existing == false,
+            new NotFoundHttpException("User cannot be found.")
+        );
+    }
+
+    /**
+     * @param string $slug
+     * @return mixed
+     */
+    public function getUserHiddenStatusBySlug(string $slug): mixed
     {
         $userDTO = (new UserDTOBuilder())
             ->setSlug($slug)
@@ -107,12 +133,12 @@ class UserService
     }
 
     /**
-     * @param bool $isHidden
+     * @param bool $is_hidden
      * @void
      */
-    public function setViewProfileStrategyByHiddenStatus(bool $isHidden): void
+    public function setViewProfileStrategyByHiddenStatus(bool $is_hidden): void
     {
-       if (! $isHidden) {
+       if (! $is_hidden) {
            $strategy = new ViewProfileStrategyContext("openProfile");
        }
        else {

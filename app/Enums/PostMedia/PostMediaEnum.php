@@ -22,4 +22,12 @@ enum PostMediaEnum : string
     {
         return self::TYPE_IMAGE->value;
     }
+
+    /**
+     * @return string
+     */
+    public static function getTypeReels(): string
+    {
+        return self::TYPE_REELS->value;
+    }
 }

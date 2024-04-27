@@ -14,12 +14,6 @@ interface UserRepositoryInterface
     public function getUserIdBySlug(UserDTO $userDTO): mixed;
 
     /**
-     * @param User $user
-     * @return mixed
-     */
-    public function getWholeUserProfileByUserModel(User $user): mixed;
-
-    /**
      * @param UserDTO $userDTO
      * @return mixed
      */
@@ -35,10 +29,16 @@ interface UserRepositoryInterface
      * @param UserDTO $userDTO
      * @return mixed
      */
-    public function checkUserExisting(UserDTO $userDTO): mixed;
+    public function checkUserExistingBySlug(UserDTO $userDTO): mixed;
 
     /**
-     * @param User $user
+     * @param UserDTO $userDTO
+     * @return mixed
+     */
+    public function checkUserExistingById(UserDTO $userDTO): mixed;
+
+    /**
+     * @param UserDTO $userDTO
      * @return mixed
      */
     public function getUserHiddenStatusBySlug(userDTO $userDTO): mixed;

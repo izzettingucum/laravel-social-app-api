@@ -2,14 +2,14 @@
 
 namespace App\Builders;
 
-use App\DTO\PostDTO;
+use App\DTO\Post\PostDTO;
 
 final class PostDTOBuilder
 {
-    private int $id;
-    private string $title;
-    private int $user_id;
-    private int $is_archived;
+    private ?int $id = null;
+    private ?string $title = null;
+    private ?int $user_id = null;
+    private ?int $is_archived = null;
 
     /**
      * @param int $id

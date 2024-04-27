@@ -41,8 +41,8 @@ class UserProfileController extends Controller
     public function show(string $slug): JsonResponse
     {
         $this->userService->validateUserExistingBySlug($slug);
-        $isHidden = $this->userService->getUserHiddenStatusBySlug($slug);
-        $this->userService->setViewProfileStrategyByHiddenStatus($isHidden);
+        $is_hidden = $this->userService->getUserHiddenStatusBySlug($slug);
+        $this->userService->setViewProfileStrategyByHiddenStatus($is_hidden);
         $user = $this->userService->executeViewProfileStrategy($slug);
         $status = $this->userService->setViewProfileStatus($user);
 

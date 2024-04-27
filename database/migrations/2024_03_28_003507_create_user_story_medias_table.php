@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_story_media', function (Blueprint $table) {
+        Schema::create('user_story_medias', function (Blueprint $table) {
             $table->id();
             $table->foreignId("story_id")->constrained("stories")->onDelete("cascade");
             $table->string("path");
