@@ -3,6 +3,7 @@
 namespace App\Repositories\Interfaces;
 
 use App\DTO\Post\PostMediaDTO;
+use App\Models\PostMedia;
 
 interface PostMediaRepositoryInterface
 {
@@ -11,4 +12,10 @@ interface PostMediaRepositoryInterface
      * @return mixed
      */
     public function createMedia(PostMediaDTO $postMediaDTO): mixed;
+
+    /**
+     * @param PostMedia $postMedia
+     * @return void
+     */
+    public function deletePostMediaByPostMediaModel(PostMedia $postMedia): void;
 }

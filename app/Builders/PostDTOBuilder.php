@@ -42,10 +42,10 @@ final class PostDTOBuilder
     }
 
     /**
-     * @param int $is_archived
+     * @param ?int $is_archived
      * @return $this
      */
-    public function setIsArchived (int $is_archived): PostDTOBuilder
+    public function setIsArchived (?int $is_archived): PostDTOBuilder
     {
         $this->is_archived = $is_archived;
         return $this;

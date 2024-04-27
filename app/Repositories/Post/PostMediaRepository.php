@@ -3,7 +3,6 @@
 namespace App\Repositories\Post;
 
 use App\DTO\Post\PostMediaDTO;
-use App\Models\Post;
 use App\Models\PostMedia;
 use App\Repositories\Interfaces\PostMediaRepositoryInterface;
 
@@ -30,5 +29,14 @@ class PostMediaRepository implements PostMediaRepositoryInterface
             "path" => $postMediaDTO->path,
             "media_type" => $postMediaDTO->media_type
         ]);
+    }
+
+    /**
+     * @param PostMedia $postMedia
+     * @return void
+     */
+    public function deletePostMediaByPostMediaModel(PostMedia $postMedia): void
+    {
+        $postMedia->delete();
     }
 }

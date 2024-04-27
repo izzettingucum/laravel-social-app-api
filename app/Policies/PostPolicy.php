@@ -15,11 +15,11 @@ class PostPolicy
      * Determine whether the user can create models.
      *
      * @param User $user
-     * @param int $user_id
+     * @param Post $post
      * @return Response|bool
      */
-    public function create(User $user, int $user_id): Response|bool
+    public function checkIfCurrentLoggedInUserIsPostUser(User $user, Post $post): Response|bool
     {
-        return $user->id == $user_id;
+        return $user->id == $post->user_id;
     }
 }
